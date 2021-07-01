@@ -7,9 +7,7 @@ class App {
         this.ctx = this.canvas.getContext('2d');
         document.body.appendChild(this.canvas);
 
-        this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
-
-        this.rain = new Rain(1000);
+        this.rain = new Rain(document.body.clientWidth * document.body.clientHeight / 600);
 
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
@@ -32,8 +30,9 @@ class App {
         this.stageWidth = document.body.clientWidth;
         this.stageHeight = document.body.clientHeight;
 
-        this.canvas.width = this.stageWidth * this.pixelRatio;
-        this.canvas.height = this.stageHeight * this.pixelRatio;
+        this.canvas.width = this.stageWidth * 2;
+        this.canvas.height = this.stageHeight * 2;
+        this.ctx.scale(2, 2);
 
         this.umbX = this.stageWidth / 2;
         this.umbY = this.stageHeight / 2;

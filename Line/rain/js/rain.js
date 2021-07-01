@@ -10,7 +10,7 @@ export class Rain {
     resize(stageWidth, stageHeight) {
         this.stageWidth = stageWidth;
         this.stageHeight = stageHeight;
-
+        this.totalN = stageWidth * stageHeight / 600;
         this.init();
     }
 
