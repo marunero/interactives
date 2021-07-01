@@ -1,2 +1,2 @@
 # Interactives
-interactive animation in web
+interactive web design
