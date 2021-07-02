@@ -9,12 +9,10 @@ export class Rain {
         this.leftTime = 0;
         this.timeSpeed = 1;
         this.umbLeftWaterN = 0;
-        this.umbLeftTotalN = 0;
         this.umbLeftWater = [];
 
         this.rightTime = 0;
         this.umbRightWaterN = 0;
-        this.umbRightTotalN = 0;
         this.umbRightWater = [];
     }
 
@@ -50,14 +48,24 @@ export class Rain {
             
             let wl = this.waterlines[i];
             
-            // if wl_lineTo point is in umbrella, reset it
+            // if wl_lineTo point is in umbrella, slice it
             if (wl.y + wl.l * wl.vy <= y && Math.pow(wl.x + wl.l * wl.vx - x, 2) + Math.pow(wl.y + wl.l * wl.vy - y, 2) <= Math.pow(radius, 2)){
-                wl.l = (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) - radius) / Math.sqrt(Math.pow(wl.vx, 2) + Math.pow(wl.vy, 2));
+                // if all of waterline is in umbrella
+                if (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) <= radius){
+                    wl.l = 0;
+                }
+                else{
+                    wl.l = (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) - radius) / Math.sqrt(Math.pow(wl.vx, 2) + Math.pow(wl.vy, 2));
+                }
                 if (wl.l <= 0.1){
                     wl.x = Math.random() * this.stagewidth;
                     wl.y = -20;
                     wl.l = Math.random() * 2;
                 }
+            }
+            // if wl.x and wl.y point are in umbrella, 
+            else if (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) <= radius){
+                // TODO
             }
 
             ctx.beginPath();
@@ -69,25 +77,55 @@ export class Rain {
         ctx.lineWidth = 1.5;
 
         for (let i = 0; i < this.umbLeftWaterN; i++){
-            this.umbLeftWater[i].umbUpdate(x, y, radius);            
-            
-            let wl = this.umbLeftWater[i]
+            this.umbLeftWater[i].umbUpdate();     
 
-            ctx.beginPath();
-            ctx.moveTo(wl.x, wl.y);
-            ctx.lineTo(wl.x + wl.l * wl.vx, wl.y + wl.l * wl.vy);
-            ctx.stroke();
+            let wl = this.umbLeftWater[i];
+
+            if (wl.y >= this.stageHeight){
+                this.umbLeftWater.splice(i, 1);
+                this.umbLeftWaterN -= 1;
+            }
+            else{
+                // // if wl_lineTo point is in umbrella, slice it
+                // if (wl.y + wl.l * wl.vy <= y && Math.pow(wl.x + wl.l * wl.vx - x, 2) + Math.pow(wl.y + wl.l * wl.vy - y, 2) <= Math.pow(radius, 2)){
+                //     wl.l = (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) - radius) / Math.sqrt(Math.pow(wl.vx, 2) + Math.pow(wl.vy, 2));
+                //     if (wl.l <= 0.1){
+                //         this.umbLeftWater.splice(i, 1);
+                //         this.umbLeftWaterN -= 1;
+                //     }
+                // }
+
+                ctx.beginPath();
+                ctx.moveTo(wl.x, wl.y);
+                ctx.lineTo(wl.x + wl.l * wl.vx, wl.y + wl.l * wl.vy);
+                ctx.stroke();
+            }
         }
 
         for (let i = 0; i < this.umbRightWaterN; i++){
-            this.umbRightWater[i].umbUpdate(x, y, radius);            
-            
-            let wl = this.umbRightWater[i]
+            this.umbRightWater[i].umbUpdate();            
+            let wl = this.umbRightWater[i];
 
-            ctx.beginPath();
-            ctx.moveTo(wl.x, wl.y);
-            ctx.lineTo(wl.x + wl.l * wl.vx, wl.y + wl.l * wl.vy);
-            ctx.stroke();
+            if (wl.y >= this.stageHeight){
+                this.umbRightWater.splice(i, 1);
+                this.umbRightWaterN -= 1;
+            }
+
+            else{
+                // // if wl_lineTo point is in umbrella, slice it
+                // if (wl.y + wl.l * wl.vy <= y && Math.pow(wl.x + wl.l * wl.vx - x, 2) + Math.pow(wl.y + wl.l * wl.vy - y, 2) <= Math.pow(radius, 2)){
+                //     wl.l = (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) - radius) / Math.sqrt(Math.pow(wl.vx, 2) + Math.pow(wl.vy, 2));
+                //     if (wl.l <= 0.1){
+                //         this.umbRightWater.splice(i, 1);
+                //         this.umbRightWaterN -= 1;
+                //     }
+                // }
+
+                ctx.beginPath();
+                ctx.moveTo(wl.x, wl.y);
+                ctx.lineTo(wl.x + wl.l * wl.vx, wl.y + wl.l * wl.vy);
+                ctx.stroke();
+            }            
         }
 
         this.leftTime -= this.timeSpeed;
@@ -108,8 +146,6 @@ export class Rain {
 
             this.umbLeftWater[this.umbLeftWaterN] = waterline;
             this.umbLeftWaterN += 1;
-            
-            this.umbLeftTotalN += 1;
         }
 
         if (this.rightTime <= 0){
@@ -127,23 +163,6 @@ export class Rain {
 
             this.umbRightWater[this.umbRightWaterN] = waterline;
             this.umbRightWaterN += 1;
-            
-            this.umbRightTotalN += 1;
-        }
-
-        if (this.umbLeftWaterN >= 1){
-            if (this.umbLeftWater[0].y > this.stageHeight){
-                let t = this.umbLeftWater.shift();
-
-                this.umbLeftWaterN -= 1;
-            }
-        }
-        if (this.umbRightWaterN >= 1){
-            if (this.umbRightWater[0].y > this.stageHeight){
-                let t = this.umbRightWater.shift();
-
-                this.umbRightWaterN -= 1;
-            }
         }
     }
 }

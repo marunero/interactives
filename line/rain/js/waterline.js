@@ -22,7 +22,7 @@ export class WaterLine {
         }
     }
 
-    umbUpdate(x, y, radius) {
+    umbUpdate() {
         this.x += this.vx;
         this.y += this.vy;
         this.vy += 0.11;
