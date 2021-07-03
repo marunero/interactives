@@ -2,6 +2,8 @@ export class Umbrella {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.accX = 0;
+        this.accY = 0;
         this.radius = 60;
         this.rodLength = 60;
         this.handleRadius = 5;

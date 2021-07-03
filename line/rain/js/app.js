@@ -17,6 +17,12 @@ class App {
         this.umbrella = new Umbrella(this.umbX, this.umbY);
 
         this.isUmbDown = false;
+        this.moveX = 0;
+        this.moveY = 0;
+        this.offmoveX = 0;
+        this.offmoveY = 0;
+        this.accX = 0;
+        this.accY = 0;
         this.offsetX = 0;
         this.offsetY = 0;
         document.addEventListener('pointerdown', this.onDown.bind(this), false);
@@ -58,12 +64,18 @@ class App {
         }
         this.offsetX = e.clientX;
         this.offsetY = e.clientY;
+        this.offmoveX = this.moveX;
+        this.offmoveY = this.moveY;
     }
 
     onMove(e) {
         if (this.isUmbDown){
-            this.umbX += e.clientX - this.offsetX;
-            this.umbY += e.clientY - this.offsetY;
+            this.moveX = e.clientX - this.offsetX;
+            this.moveY = e.clientY - this.offsetY;
+            
+            this.umbX += this.moveX;
+            this.umbY += this.moveY;
+            
             this.offsetX = e.clientX;
             this.offsetY = e.clientY;
         }
@@ -71,6 +83,12 @@ class App {
 
     onUp(e) {
         this.isUmbDown = false;
+        this.moveX = 0;
+        this.moveY = 0;
+        this.offmoveX = 0;
+        this.offmoveY = 0;
+        this.accX = 0;
+        this.accY = 0;
     }
 }
 

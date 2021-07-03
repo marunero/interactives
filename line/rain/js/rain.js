@@ -63,10 +63,6 @@ export class Rain {
                     wl.l = Math.random() * 2;
                 }
             }
-            // if wl.x and wl.y point are in umbrella, 
-            else if (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) <= radius){
-                // TODO
-            }
 
             ctx.beginPath();
             ctx.moveTo(wl.x, wl.y);
@@ -81,19 +77,25 @@ export class Rain {
 
             let wl = this.umbLeftWater[i];
 
-            if (wl.y >= this.stageHeight){
+            if (wl.y >= this.stageHeight || wl.x <= 0 || wl.x >= this.stageWidth){
                 this.umbLeftWater.splice(i, 1);
                 this.umbLeftWaterN -= 1;
             }
             else{
-                // // if wl_lineTo point is in umbrella, slice it
-                // if (wl.y + wl.l * wl.vy <= y && Math.pow(wl.x + wl.l * wl.vx - x, 2) + Math.pow(wl.y + wl.l * wl.vy - y, 2) <= Math.pow(radius, 2)){
-                //     wl.l = (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) - radius) / Math.sqrt(Math.pow(wl.vx, 2) + Math.pow(wl.vy, 2));
-                //     if (wl.l <= 0.1){
-                //         this.umbLeftWater.splice(i, 1);
-                //         this.umbLeftWaterN -= 1;
-                //     }
-                // }
+                // if wl_lineTo point is in umbrella, slice it
+                if (wl.y + wl.l * wl.vy <= y && Math.pow(wl.x + wl.l * wl.vx - x, 2) + Math.pow(wl.y + wl.l * wl.vy - y, 2) <= Math.pow(radius, 2)){
+                    // if all of waterline is in umbrella
+                    if (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) <= radius){
+                        wl.l = 0;
+                    }
+                    else{
+                        wl.l = (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) - radius) / Math.sqrt(Math.pow(wl.vx, 2) + Math.pow(wl.vy, 2));
+                    }
+                    if (wl.l <= 0.1){
+                        this.umbLeftWater.splice(i, 1);
+                        this.umbLeftWaterN -= 1;
+                    }
+                }
 
                 ctx.beginPath();
                 ctx.moveTo(wl.x, wl.y);
@@ -106,20 +108,26 @@ export class Rain {
             this.umbRightWater[i].umbUpdate();            
             let wl = this.umbRightWater[i];
 
-            if (wl.y >= this.stageHeight){
+            if (wl.y >= this.stageHeight || wl.x <= 0 || wl.x >= this.stageWidth){
                 this.umbRightWater.splice(i, 1);
                 this.umbRightWaterN -= 1;
             }
 
             else{
-                // // if wl_lineTo point is in umbrella, slice it
-                // if (wl.y + wl.l * wl.vy <= y && Math.pow(wl.x + wl.l * wl.vx - x, 2) + Math.pow(wl.y + wl.l * wl.vy - y, 2) <= Math.pow(radius, 2)){
-                //     wl.l = (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) - radius) / Math.sqrt(Math.pow(wl.vx, 2) + Math.pow(wl.vy, 2));
-                //     if (wl.l <= 0.1){
-                //         this.umbRightWater.splice(i, 1);
-                //         this.umbRightWaterN -= 1;
-                //     }
-                // }
+                // if wl_lineTo point is in umbrella, slice it
+                if (wl.y + wl.l * wl.vy <= y && Math.pow(wl.x + wl.l * wl.vx - x, 2) + Math.pow(wl.y + wl.l * wl.vy - y, 2) <= Math.pow(radius, 2)){
+                    // if all of waterline is in umbrella
+                    if (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) <= radius){
+                        wl.l = 0;
+                    }
+                    else{
+                        wl.l = (Math.sqrt(Math.pow(wl.x - x, 2) + Math.pow(wl.y - y, 2)) - radius) / Math.sqrt(Math.pow(wl.vx, 2) + Math.pow(wl.vy, 2));
+                    }
+                    if (wl.l <= 0.1){
+                        this.umbRightWater.splice(i, 1);
+                        this.umbRightWaterN -= 1;
+                    }
+                }
 
                 ctx.beginPath();
                 ctx.moveTo(wl.x, wl.y);
