@@ -7,7 +7,7 @@ class App {
         this.ctx = this.canvas.getContext('2d');
         document.body.appendChild(this.canvas);
 
-        this.rain = new Rain(document.body.clientWidth * document.body.clientHeight / 1500);
+        this.rain = new Rain(document.body.clientWidth * document.body.clientHeight / 700);
 
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
@@ -41,7 +41,7 @@ class App {
         this.ctx.scale(2, 2);
 
         this.umbX = this.stageWidth / 2;
-        this.umbY = this.stageHeight / 2;
+        this.umbY = this.stageHeight / 1.2;
 
         this.rain.resize(this.stageWidth, this.stageHeight);
     }

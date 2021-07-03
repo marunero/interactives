@@ -19,7 +19,7 @@ export class Rain {
     resize(stageWidth, stageHeight) {
         this.stageWidth = stageWidth;
         this.stageHeight = stageHeight;
-        this.waterlineN = stageWidth * stageHeight / 1500;
+        this.waterlineN = stageWidth * stageHeight / 700;
         this.init();
     }
 
