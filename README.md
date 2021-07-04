@@ -1,5 +1,5 @@
 # Interactives
-interactive web designs with HTML Canvas 
+interactive web designs
 
 ## rain 
 Topic: Line 
