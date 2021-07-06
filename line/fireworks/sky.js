@@ -1,4 +1,5 @@
 import { Fireworks } from "./fireworks.js";
+import { Explosion } from "./explosion.js";
 
 export class Sky {
     constructor() {
