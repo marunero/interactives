@@ -80,6 +80,7 @@ export class Rain {
             if (wl.y >= this.stageHeight || wl.x <= 0 || wl.x >= this.stageWidth){
                 this.umbLeftWater.splice(i, 1);
                 this.umbLeftWaterN -= 1;
+                i -= 1;
             }
             else{
                 // if wl_lineTo point is in umbrella, slice it
@@ -111,6 +112,7 @@ export class Rain {
             if (wl.y >= this.stageHeight || wl.x <= 0 || wl.x >= this.stageWidth){
                 this.umbRightWater.splice(i, 1);
                 this.umbRightWaterN -= 1;
+                i -= 1;
             }
 
             else{

@@ -1,4 +1,5 @@
-import { className } from "./className.js";
+import { Sky } from "./sky.js";
+import { Pointer } from "./pointer.js";
 
 class App {
     constructor() {
@@ -6,13 +7,15 @@ class App {
         this.ctx = this.canvas.getContext('2d');
         document.body.appendChild(this.canvas);
 
-        this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
-
-        //this.WaveGroup = new WaveGroup();
+        this.sky = new Sky();
+        this.pointer = new Pointer(document.body.clientWidth / 2, document.body.clientHeight / 2);
 
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
 
+        document.addEventListener('pointerdown', this.onDown.bind(this), false);
+        document.addEventListener('pointermove', this.onMove.bind(this), false);
+        
         requestAnimationFrame(this.animate.bind(this));
     }
 
@@ -20,18 +23,32 @@ class App {
         this.stageWidth = document.body.clientWidth;
         this.stageHeight = document.body.clientHeight;
 
-        this.canvas.width = this.stageWidth * this.pixelRatio;
-        this.canvas.height = this.stageHeight * this.pixelRatio;
+        this.canvas.width = this.stageWidth * 2;
+        this.canvas.height = this.stageHeight * 2;
+        this.ctx.scale(2, 2);
 
-        //this.WaveGroup.resize(this.stageWidth, this.stageHeight);
+        this.sky.resize(this.stageWidth, this.stageHeight);
     }
 
     animate() {
         this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
-        //this.WaveGroup.draw(this.ctx);
+        this.sky.draw(this.ctx);
+        this.pointer.draw(this.ctx);
 
         requestAnimationFrame(this.animate.bind(this));
+    }
+    
+    onDown(e) {
+        this.sky.addFireworks(e.clientX, e.clientY);
+    }
+
+    onMove(e) {
+        this.pointer.update(e.clientX, e.clientY);
+    }
+
+    onUp(e) {
+
     }
 }
 
