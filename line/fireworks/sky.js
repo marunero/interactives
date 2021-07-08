@@ -5,6 +5,8 @@ export class Sky {
     constructor() {
         this.fireworksN = 0;
         this.fireworks = [];
+        this.explosionN = 0;
+        this.explosion = [];
         this.fireLength = 6;
         this.firevX = 0;
         this.firevY = 4;
@@ -23,9 +25,16 @@ export class Sky {
         this.fireworksN += 1;
     }
 
+    addExplosion(sX, sY) {
+        const explosion = new Explosion(sX, sY, Math.random() * 1 + 2, ((Math.random() * 6 + 14) / 2) * 2, Math.random() * 360, Math.random() * 20 + 50, Math.random() * 10 + 80, Math.random() * 0.01 + 0.02);
+        explosion.init();
+        this.explosion[this.explosionN] = explosion;
+        this.explosionN += 1;
+    }
+
     draw(ctx) {
         ctx.strokeStyle = 'rgba(199, 215, 235, 1)';
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 0.6;
         ctx.lineCap = 'round';
 
         for (let i = 0; i < this.fireworksN; i++){
@@ -36,6 +45,8 @@ export class Sky {
                 this.fireworks.splice(i, 1);
                 this.fireworksN -= 1;
                 i -= 1;
+
+                this.addExplosion(fw.targetX, fw.targetY);
             }
             else{
                 ctx.beginPath();
@@ -45,6 +56,26 @@ export class Sky {
             }
 
         }
+        ctx.lineWidth = 2;
+        for (let i = 0; i < this.explosionN; i++) {
+            this.explosion[i].update();
+            let ex = this.explosion[i];
 
+            if (ex.alpha <= 1) {
+                this.explosion.splice(i, 1);
+                this.explosionN -= 1;
+                i -= 1;
+            }
+            else {
+                ctx.strokeStyle = 'hsla(' + ex.hue + ', 100%, ' + ex.brightness + '%, ' + ex.alpha + '%)';
+                for (let j = 0; j < ex.n; j ++) {
+                    let pj = ex.particle[j];
+                    ctx.beginPath();
+                    ctx.moveTo(pj.x, pj.y);
+                    ctx.lineTo(pj.x + pj.vX, pj.y + pj.vY);
+                    ctx.stroke();
+                }
+            }
+        }
     }
 }

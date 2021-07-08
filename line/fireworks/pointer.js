@@ -17,7 +17,7 @@ export class Pointer {
 
         ctx.moveTo(this.x, this.y);
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+        ctx.arc(this.x - ctx.lineWidth, this.y + ctx.lineWidth, this.radius, 0, 2 * Math.PI, false);
         ctx.stroke();        
     }
 }

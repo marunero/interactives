@@ -11,8 +11,6 @@ export class Fireworks {
         this.targetY = targetY;
 
         this.l = l;
-
-        this.color = '#EFDC05';
     }
 
     update() {

@@ -8,8 +8,6 @@ class App {
         document.body.appendChild(this.canvas);
 
         this.sky = new Sky();
-        this.pointer = new Pointer(document.body.clientWidth / 2, document.body.clientHeight / 2);
-
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
 
@@ -34,7 +32,6 @@ class App {
         this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
         this.sky.draw(this.ctx);
-        this.pointer.draw(this.ctx);
 
         requestAnimationFrame(this.animate.bind(this));
     }
@@ -44,7 +41,6 @@ class App {
     }
 
     onMove(e) {
-        this.pointer.update(e.clientX, e.clientY);
     }
 
     onUp(e) {
