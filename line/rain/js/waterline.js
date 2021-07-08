@@ -15,6 +15,7 @@ export class WaterLine {
         this.x += this.vx;
         this.y += this.vy;
         this.vy += 0.11;
+        // if waterline exits screen, reset its position randomly
         if (this.x > this.stagewidth || this.y > this.stageheight){
             this.x = Math.random() * this.stagewidth;
             this.y = -10;

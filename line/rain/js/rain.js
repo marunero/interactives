@@ -19,7 +19,7 @@ export class Rain {
     resize(stageWidth, stageHeight) {
         this.stageWidth = stageWidth;
         this.stageHeight = stageHeight;
-        this.waterlineN = stageWidth * stageHeight / 700;
+        this.waterlineN = stageWidth * stageHeight / 700 > 2000 ? stageWidth * stageHeight / 700 : 2000;
         this.init();
     }
 
@@ -39,7 +39,7 @@ export class Rain {
     }
 
     draw(ctx, x, y, radius) {
-        ctx.strokeStyle = 'rgba(199, 215, 235, 1)';
+        ctx.strokeStyle = 'rgba(199, 215, 235, 0.7)';
         ctx.lineWidth = 0.5;
         ctx.lineCap = 'round';
 
@@ -140,7 +140,7 @@ export class Rain {
 
         this.leftTime -= this.timeSpeed;
         this.rightTime -= this.timeSpeed;
-        
+        // make waterlines for each sides of umbrella with random period
         if (this.leftTime <= 0){
             this.leftTime = 6 + Math.random() * 17;
 
