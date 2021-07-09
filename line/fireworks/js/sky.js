@@ -26,7 +26,7 @@ export class Sky {
     }
 
     addExplosion(sX, sY) {
-        const explosion = new Explosion(sX, sY, Math.random() * 1 + 2, ((Math.random() * 6 + 14) / 2) * 2, Math.random() * 360, Math.random() * 20 + 50, Math.random() * 10 + 80, Math.random() * 0.01 + 0.02);
+        const explosion = new Explosion(sX, sY, Math.random() * 1 + 2, ((Math.random() * 6 + 14) / 2) * 2, Math.random() * 360, Math.random() * 20 + 50, Math.random() * 10 + 80, Math.random() * 0.01 + 0.02, Math.random() * 3 + 3);
         explosion.init();
         this.explosion[this.explosionN] = explosion;
         this.explosionN += 1;
@@ -72,7 +72,8 @@ export class Sky {
                     let pj = ex.particle[j];
                     ctx.beginPath();
                     ctx.moveTo(pj.x, pj.y);
-                    ctx.lineTo(pj.x + pj.vX, pj.y + pj.vY);
+                    ctx.quadraticCurveTo(pj.x + pj.l * pj.vX, pj.y + pj.l * pj.vY, pj.x + pj.l * pj.vX, pj.y + pj.l * (pj.vY + pj.g));
+                    //ctx.lineTo(pj.x + pj.vX, pj.y + pj.vY);
                     ctx.stroke();
                 }
             }

@@ -1,15 +1,16 @@
 export class Particle {
-    constructor(x, y, vX, vY) {
+    constructor(x, y, vX, vY, l) {
         this.x = x;
         this.y = y;
         this.vX = vX;
         this.vY = vY;
-        this.g = 0.1;
+        this.l = l;
+        this.g = 0.01;
     }
 
     update() {
         this.x += this.vX;
         this.y += this.vY;
-        this.y += this.g;
+        this.vY += this.g;
     }
 }
