@@ -5,7 +5,7 @@ export class Particle {
         this.vX = vX;
         this.vY = vY;
         this.l = l;
-        this.g = 0.01;
+        this.g = 0.008;
     }
 
     update() {
