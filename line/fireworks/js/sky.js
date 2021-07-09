@@ -9,7 +9,7 @@ export class Sky {
         this.explosion = [];
         this.fireLength = 6;
         this.firevX = 0;
-        this.firevY = 4;
+        this.firevY = 2;
     }
 
     resize(stageWidth, stageHeight) {
@@ -20,7 +20,7 @@ export class Sky {
     }
 
     addFireworks(targetX, targetY) {
-        const fireworks = new Fireworks(targetX, this.stageHeight + this.fireLength * this.firevY, targetX, targetY, this.firevX, (-1) * this.firevY, this.fireLength);
+        const fireworks = new Fireworks(targetX, this.stageHeight + this.fireLength * this.firevY, targetX, targetY, this.firevX, (-1) * this.firevY * this.stageHeight / (targetY / 1.3 + 250), this.fireLength);
         this.fireworks[this.fireworksN] = fireworks;
         this.fireworksN += 1;
     }
