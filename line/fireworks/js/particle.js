@@ -12,5 +12,6 @@ export class Particle {
         this.x += this.vX;
         this.y += this.vY;
         this.vY += this.g;
+        this.l -= 0.005;
     }
 }

@@ -1,7 +1,7 @@
 import { Particle } from "./particle.js";
 
 export class Explosion {
-    constructor(sX, sY, v, n, hue, brightness, alpha, decay, fireL) {
+    constructor(sX, sY, v, n, hue, brightness, alpha, decay, fireL, repeatExplosion) {
         this.sX = sX;
         this.sY = sY;
         this.v = v;
@@ -13,6 +13,7 @@ export class Explosion {
         this.alpha = alpha;
         this.decay = decay;
         this.fireL = fireL;
+        this.repeatExplosion = repeatExplosion;
     }
 
     init() {

@@ -25,8 +25,8 @@ export class Sky {
         this.fireworksN += 1;
     }
 
-    addExplosion(sX, sY) {
-        const explosion = new Explosion(sX, sY, Math.random() * 1 + 2, ((Math.random() * 6 + 14) / 2) * 2, Math.random() * 360, Math.random() * 20 + 50, Math.random() * 10 + 80, Math.random() * 0.01 + 0.02, Math.random() * 3 + 3);
+    addExplosion(sX, sY, repeatExplosion) {
+        const explosion = new Explosion(sX, sY, Math.random() * 1 + 2, ((Math.random() * 6 + 14) / 2) * 2, Math.random() * 360, Math.random() * 20 + 50, Math.random() * 10 + 80, Math.random() * 0.01 + 0.02, Math.random() * 2 + 5, repeatExplosion);
         explosion.init();
         this.explosion[this.explosionN] = explosion;
         this.explosionN += 1;
@@ -46,7 +46,7 @@ export class Sky {
                 this.fireworksN -= 1;
                 i -= 1;
 
-                this.addExplosion(fw.targetX, fw.targetY);
+                this.addExplosion(fw.targetX, fw.targetY, 0);
             }
             else{
                 ctx.beginPath();
@@ -65,6 +65,13 @@ export class Sky {
                 this.explosion.splice(i, 1);
                 this.explosionN -= 1;
                 i -= 1;
+
+                if (ex.repeatExplosion >= 1){
+                    ex.repeatExplosion -= 1;
+                    for (let j = 0; j < ex.n; j++){
+                        this.addExplosion(ex.particle[j].x, ex.particle[j].y, ex.repeatExplosion);
+                    }
+                }
             }
             else {
                 ctx.strokeStyle = 'hsla(' + ex.hue + ', 100%, ' + ex.brightness + '%, ' + ex.alpha + '%)';
