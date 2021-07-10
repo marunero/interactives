@@ -11,6 +11,8 @@ class App {
         this.sky = new Sky();
         this.city = new City(50, document.body.clientWidth, document.body.clientHeight);
 
+        this.time = 30;
+
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
 
@@ -37,6 +39,12 @@ class App {
 
         this.sky.draw(this.ctx);
         this.city.draw(this.ctx);
+
+        this.time += 1;
+        if (this.time == 100){
+            this.sky.addFireworks(this.stageWidth * Math.random(), this.stageHeight / 3 + this.stageHeight / 3 * Math.random());
+            this.time = 0;
+        }
 
         requestAnimationFrame(this.animate.bind(this));
     }
