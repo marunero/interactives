@@ -17,6 +17,7 @@ export class Sky {
         this.stageHeight = stageHeight;
 
         this.fireworksN = 0;
+        this.explosionN = 0;
     }
 
     addFireworks(targetX, targetY) {
@@ -26,7 +27,7 @@ export class Sky {
     }
 
     addExplosion(sX, sY, repeatExplosion) {
-        const explosion = new Explosion(sX, sY, Math.random() * 0.5 + 0.8, (Math.random() * 10 + 15), Math.random() * 360, Math.random() * 20 + 50, Math.random() * 10 + 80, Math.random() * 0.01 + 0.02, Math.random() * 2 + 6, repeatExplosion);
+        const explosion = new Explosion(sX, sY, Math.random() * 0.5 + 0.6, (Math.random() * 10 + 15), Math.random() * 360, Math.random() * 20 + 50, Math.random() * 10 + 80, Math.random() * 0.01 + 0.02, Math.random() * 2 + 8, repeatExplosion);
         explosion.init();
         this.explosion[this.explosionN] = explosion;
         this.explosionN += 1;

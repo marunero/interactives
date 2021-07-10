@@ -1,5 +1,6 @@
 import { Sky } from "./sky.js";
 import { Pointer } from "./pointer.js";
+import { City } from "./city.js";
 
 class App {
     constructor() {
@@ -8,6 +9,8 @@ class App {
         document.body.appendChild(this.canvas);
 
         this.sky = new Sky();
+        this.city = new City(50, document.body.clientWidth, document.body.clientHeight);
+
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
 
@@ -26,12 +29,14 @@ class App {
         this.ctx.scale(2, 2);
 
         this.sky.resize(this.stageWidth, this.stageHeight);
+        this.city.resize(this.stageWidth, this.stageHeight);
     }
 
     animate() {
         this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
         this.sky.draw(this.ctx);
+        this.city.draw(this.ctx);
 
         requestAnimationFrame(this.animate.bind(this));
     }
