@@ -1,7 +1,7 @@
 # Interactives
 interactive web designs
 
-## rain 
+## Rain 
 Topic: Line 
 
 link: https://marunero.github.io/interactives/line/rain/
