@@ -11,7 +11,7 @@ class App {
         this.sky = new Sky();
         this.city = new City(50, document.body.clientWidth, document.body.clientHeight);
 
-        this.time = 30;
+        this.time = 0;
 
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
