@@ -9,9 +9,13 @@ class App {
         this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
         
         this.CenterLine = new CenterLine(5);
+        this.hoverIndex = 0;
+
 
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
+        
+        document.addEventListener('pointermove', this.onMove.bind(this), false);
 
         requestAnimationFrame(this.animate.bind(this));
     }
@@ -34,6 +38,10 @@ class App {
         this.CenterLine.draw(this.ctx);
 
         requestAnimationFrame(this.animate.bind(this));
+    }
+
+    onMove(e) {
+        this.CenterLine.update(e.clientX);
     }
 }
 
