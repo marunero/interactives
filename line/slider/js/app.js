@@ -7,8 +7,11 @@ class App {
         document.body.appendChild(this.canvas);
 
         this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
+
+        this.stageWidth = document.body.clientWidth;
+        this.stageHeight = document.body.clientHeight;
         
-        this.Slider = new Slider(document.body.clientWidth, document.body.clientHeight);
+        this.Slider = new Slider(this.stageWidth, this.stageHeight, this.stageWidth / 4, this.stageHeight / 4, this.stageWidth * 3 / 4, this.stageHeight * 3 / 4);
 
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
@@ -63,8 +66,8 @@ class App {
                 direction = 3;
             }
         }
-
-        this.Slider.addLine(direction);
+        
+        this.Slider.addOutSlide(direction);
     }
 }
 
