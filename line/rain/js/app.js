@@ -7,7 +7,7 @@ class App {
         this.ctx = this.canvas.getContext('2d');
         document.body.appendChild(this.canvas);
         
-        const num = document.body.clientWidth * document.body.clientHeight / 700 > 2000 ? document.body.clientWidth * document.body.clientHeight / 700 : 2000;
+        const num = document.body.clientWidth * document.body.clientHeight / 1000 > 1000 ? document.body.clientWidth * document.body.clientHeight / 1000 : 1000;
         this.rain = new Rain(num);
 
         window.addEventListener('resize', this.resize.bind(this), false);
