@@ -9,3 +9,6 @@ https://marunero.github.io/interactives/line/fireworks/
 
 ## Extending Tab
 https://marunero.github.io/interactives/line/extendTab/
+
+## Slider
+https://marunero.github.io/interactives/line/slider/
