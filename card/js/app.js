@@ -8,14 +8,17 @@ class App {
 
         this.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
         
-        this.n = 10;
-        this.Polygon = new Polygon(document.body.clientWidth / 2, document.body.clientHeight * 3 / 2, document.body.clientHeight * 3 / 2 - document.body.clientHeight / 2, this.n);
+        this.n = 20;
+        this.x = document.body.clientWidth / 2 + document.body.clientWidth;
+        this.y = document.body.clientHeight / 2;
+        this.r = document.body.clientWidth;
+        this.Polygon = new Polygon(this.x, this.y, this.r, this.n);
 
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
 
         this.mouseDown = false;
-        this.offsetX = 0;
+        this.offsetY = 0;
         this.v = 0;
         document.addEventListener('pointerdown', this.onDown.bind(this), false);
         document.addEventListener('pointerup', this.onUp.bind(this), false);
@@ -33,7 +36,7 @@ class App {
 
         this.ctx.scale(this.pixelRatio, this.pixelRatio);
         
-        this.Polygon.resize(document.body.clientWidth / 2, document.body.clientHeight * 3 / 2, document.body.clientHeight * 3 / 2 - document.body.clientHeight / 2, this.n);
+        this.Polygon.resize(this.x, this.y, this.r, this.n);
 
     }
 
@@ -53,22 +56,25 @@ class App {
         else{
             this.v = 0;
         }
+
+        if (this.mouseDown == false && this.v <= 10) {
+            this.Polygon.align();
+        }
     }
 
     onDown(e) {
         this.mouseDown = true;
-        this.offsetX = e.clientX;
+        this.offsetY = e.clientY;
     }
     onUp(e) {
         this.mouseDown = false;
-        this.offsetX = 0;
+        this.offsetY = 0;
     }
     onMove(e) {
         if (this.mouseDown == true) {
-            this.x = e.clientX;
-            this.v = this.x - this.offsetX;
+            this.v = this.offsetY - e.clientY;
             
-            this.offsetX = e.clientX;
+            this.offsetY = e.clientY;
         }
         
     }
