@@ -26,7 +26,7 @@ export class Polygon {
             const t = new Point(this.x + this.r * Math.cos(2 * i * (Math.PI) / (this.n)), this.y + this.r * Math.sin(2 * i * Math.PI / this.n));
             this.point[i] = t;
         }
-    }
+    } 
 
     spin(t) {
         this.angle += t / this.spinRatio;
