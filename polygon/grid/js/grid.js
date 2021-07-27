@@ -34,7 +34,7 @@ export class Grid {
             for (let j = 0; j < this.ny; j ++) {
                 let color = 'hsl(' + 360 / (this.nx * this.ny) * (i * this.ny + j) + ', 100%, 70%)';
 
-                const s = new Square(this.stageWidth / this.nx * i + this.stageWidth / (2 * this.nx), this.stageHeight / this.ny * j + this.stageHeight / (2 * this.ny), this.stageWidth / this.nx, this.stageHeight / this.ny, color);
+                const s = new Square(this.stageWidth / this.nx * i + this.stageWidth / (2 * this.nx), this.stageHeight / this.ny * j + this.stageHeight / (2 * this.ny), this.stageWidth / this.nx, this.stageHeight / this.ny, color, this.stageWidth, this.stageHeight);
                 s.init();
                 this.square[i * this.ny + j] = s;
             }
@@ -42,17 +42,19 @@ export class Grid {
     }
 
     draw(ctx) {
-        let overi = 0;
+        let expandi = -1;
         for (let i = 0; i < this.nx; i ++) {
             for (let j = 0; j < this.ny; j ++) {
-                if (this.square[i * this.ny + j].expand == true){
-                    overi = i * this.ny + j;
+                if (this.square[i * this.ny + j].expand == true) {
+                    expandi = i * this.ny + j;
                 }
                 else{
                     this.square[i * this.ny + j].draw(ctx);
                 }
             }
         }
-        this.square[overi].draw(ctx);
+        if (expandi != -1) {
+            this.square[expandi].draw(ctx);
+        }
     }
 }

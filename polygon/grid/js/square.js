@@ -1,20 +1,30 @@
 import {Point} from './point.js'
 
 export class Square {
-    constructor(x, y, width, height, color) {
+    constructor(x, y, width, height, color, stageWidth, stageHeight) {
         this.x = x;
         this.y = y;
+        this.initX = x;
+        this.initY = y;
+
         this.width = width;
         this.height = height;
         this.initW = width;
         this.initH = height;
+        this.offsetWidth = 0;
+        this.offsetHeight = 0;
         this.ratio = 1.3;
         this.v = 1.1;
 
         this.expand = false;
+        this.full = false;
+        this.overZ = false;
 
         this.color = color;
         this.point = [];
+
+        this.stageWidth = stageWidth;
+        this.stageHeight = stageHeight;
     }
 
     init() {
@@ -43,7 +53,7 @@ export class Square {
             if (this.width / this.v > this.initW){
                 this.width /= this.v;
             }
-            else{
+            else{;
                 this.width = this.initW;
             }
 
@@ -95,7 +105,7 @@ export class Square {
         }
         ctx.lineTo(this.point[0].x, this.point[0].y);
         ctx.strokeStyle = 'black';
-        ctx.stroke();
+        //ctx.stroke();
         ctx.fill();
         ctx.closePath();
     }

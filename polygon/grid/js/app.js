@@ -15,6 +15,7 @@ class App {
         this.resize();
 
         document.addEventListener('pointermove', this.onMove.bind(this), false);
+        document.addEventListener('pointerdown', this.onDown.bind(this), false);
 
         requestAnimationFrame(this.animate.bind(this));
     }
@@ -25,6 +26,7 @@ class App {
 
         this.Grid.resize(this.stageWidth, this.stageHeight);
         this.fullScreen = false;
+        this.fullIndex = 0;
 
         this.canvas.width = this.stageWidth * this.pixelRatio;
         this.canvas.height = this.stageHeight * this.pixelRatio;
@@ -46,7 +48,7 @@ class App {
         
     }
     onUp(e) {
-        
+
     }
     onMove(e) {
         for (let i = 0; i < this.Grid.nx; i++) {
