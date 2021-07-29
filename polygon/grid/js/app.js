@@ -45,26 +45,49 @@ class App {
     }
 
     onDown(e) {
-        
+        if (this.fullScreen == false){
+            this.fullScreen = true;
+            for (let i = 0; i < this.Grid.nx; i++) {
+                for (let j = 0; j < this.Grid.ny; j ++) {
+                    const s = this.Grid.square[i * this.Grid.ny + j];
+                    
+                    if (s.x - s.initW / 2 < e.clientX && s.x + s.initW / 2 > e.clientX) {
+                        if (s.y - s.initH / 2 < e.clientY && s.y + s.initH / 2 > e.clientY) {
+                            this.Grid.square[i * this.Grid.ny + j].full = true;
+                            this.Grid.square[i * this.Grid.ny + j].expand = true;
+                            this.Grid.square[i * this.Grid.ny + j].overZ = true;
+                            this.fullIndex = i * this.Grid.ny + j;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            this.fullScreen = false;
+            this.Grid.square[this.fullIndex].full = false;
+            this.Grid.square[this.fullIndex].expand = false;
+        }
     }
     onUp(e) {
 
     }
     onMove(e) {
-        for (let i = 0; i < this.Grid.nx; i++) {
-            for (let j = 0; j < this.Grid.ny; j ++) {
-                const s = this.Grid.square[i * this.Grid.ny + j];
-                
-                if (s.x - s.initW / 2 < e.clientX && s.x + s.initW / 2 > e.clientX) {
-                    if (s.y - s.initH / 2 < e.clientY && s.y + s.initH / 2 > e.clientY) {
-                        this.Grid.square[i * this.Grid.ny + j].expand = true;
+        if (this.fullScreen == false) {
+            for (let i = 0; i < this.Grid.nx; i++) {
+                for (let j = 0; j < this.Grid.ny; j ++) {
+                    const s = this.Grid.square[i * this.Grid.ny + j];
+                    
+                    if (s.x - s.initW / 2 < e.clientX && s.x + s.initW / 2 > e.clientX) {
+                        if (s.y - s.initH / 2 < e.clientY && s.y + s.initH / 2 > e.clientY) {
+                            this.Grid.square[i * this.Grid.ny + j].expand = true;
+                        }
+                        else{
+                            this.Grid.square[i * this.Grid.ny + j].expand = false;
+                        }
                     }
                     else{
                         this.Grid.square[i * this.Grid.ny + j].expand = false;
                     }
-                }
-                else{
-                    this.Grid.square[i * this.Grid.ny + j].expand = false;
                 }
             }
         }

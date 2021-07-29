@@ -8,7 +8,10 @@ https://marunero.github.io/interactives/line/rain/
 https://marunero.github.io/interactives/line/fireworks/
 
 ## Extending Tab
-https://marunero.github.io/interactives/line/extendTab/
+https://marunero.github.io/interactives/polygon/extendTab/
 
 ## Slider
-https://marunero.github.io/interactives/line/slider/
+https://marunero.github.io/interactives/polygon/slider/
+
+## Grid
+https://marunero.github.io/interactives/polygon/grid/

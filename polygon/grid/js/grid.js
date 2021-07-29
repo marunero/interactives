@@ -16,19 +16,6 @@ export class Grid {
         this.init();
     }
 
-    setExpand(index){
-        for (let i = 0; i < this.nx; i ++) {
-            for (let j = 0; j < this.ny; j ++) {
-                if (i * this.ny + j == index) {
-                    this.square[index].expand = true;
-                }
-                else{
-                    this.square[index].expand = false;
-                }
-            }
-        }
-    }
-
     init() {
         for (let i = 0; i < this.nx; i ++ ) {
             for (let j = 0; j < this.ny; j ++) {
@@ -43,18 +30,31 @@ export class Grid {
 
     draw(ctx) {
         let expandi = -1;
+        let overi = -1;
         for (let i = 0; i < this.nx; i ++) {
             for (let j = 0; j < this.ny; j ++) {
                 if (this.square[i * this.ny + j].expand == true) {
                     expandi = i * this.ny + j;
                 }
-                else{
+                if (this.square[i * this.ny + j].overZ == true) {
+                    overi = i * this.ny + j;
+                }
+            }
+        }
+
+        for (let i = 0; i < this.nx; i ++) {
+            for (let j = 0; j < this.ny; j ++) {
+                if (expandi != i * this.ny + j || overi != i * this.ny + j) {
                     this.square[i * this.ny + j].draw(ctx);
                 }
             }
         }
+
         if (expandi != -1) {
             this.square[expandi].draw(ctx);
+        }
+        if (overi != -1) {
+            this.square[overi].draw(ctx);
         }
     }
 }

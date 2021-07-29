@@ -11,8 +11,8 @@ export class Square {
         this.height = height;
         this.initW = width;
         this.initH = height;
-        this.offsetWidth = 0;
-        this.offsetHeight = 0;
+        this.dWidth = 0;
+        this.dHeight = 0;
         this.ratio = 1.3;
         this.v = 1.1;
 
@@ -49,34 +49,62 @@ export class Square {
 
 
     draw(ctx) {
-        if (this.expand == false) {
-            if (this.width / this.v > this.initW){
-                this.width /= this.v;
-            }
-            else{;
-                this.width = this.initW;
-            }
-
-            if (this.height / this.v > this.initH) {
-                this.height /= this.v;
+        if (this.full == true) {
+            this.overZ = true;
+            if (this.width * this.v < this.stageWidth) {
+                this.width *= this.v;
+                // TODO this.x = 
             }
             else{
-                this.height = this.initH;
+                this.width = this.stageWidth;
+                this.x = this.stageWidth / 2;
+            }
+
+            if (this.height * this.v < this.stageHeight) {
+                this.height *= this.v;
+                // TODO this.y = 
+            }
+            else{
+                this.height = this.stageHeight;
+                this.y = this.stageHeight / 2;
             }
         }
         else{
-            if (this.width * this.v < this.ratio * this.initW) {
-                this.width *= this.v;
+            if (this.expand == false) {
+                if (this.width / this.v > this.initW){
+                    this.width /= this.v;
+                    // TODO this.x = 
+                }
+                else{;
+                    this.width = this.initW;
+                    this.overZ = false;
+                    this.x = this.initX;
+                }
+    
+                if (this.height / this.v > this.initH) {
+                    this.height /= this.v;
+                    // TODO this.y = 
+                }
+                else{
+                    this.height = this.initH;
+                    this.overZ = false;
+                    this.y = this.initY;
+                }
             }
             else{
-                this.width = this.ratio * this.initW;
-            }
-
-            if (this.height * this.v < this.ratio * this.initH) {
-                this.height *= this.v;
-            }
-            else{
-                this.height = this.ratio * this.initH;
+                if (this.width * this.v < this.ratio * this.initW) {
+                    this.width *= this.v;
+                }
+                else{
+                    this.width = this.ratio * this.initW;
+                }
+    
+                if (this.height * this.v < this.ratio * this.initH) {
+                    this.height *= this.v;
+                }
+                else{
+                    this.height = this.ratio * this.initH;
+                }
             }
         }
 
