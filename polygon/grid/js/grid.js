@@ -19,7 +19,7 @@ export class Grid {
     init() {
         for (let i = 0; i < this.nx; i ++ ) {
             for (let j = 0; j < this.ny; j ++) {
-                let color = 'hsl(' + 360 / (this.nx * this.ny) * (i * this.ny + j) + ', 100%, 70%)';
+                let color = 'hsl(' + 360 / (this.nx * this.ny) * (i * this.ny + j) + ', 100%, 60%)';
 
                 const s = new Square(this.stageWidth / this.nx * i + this.stageWidth / (2 * this.nx), this.stageHeight / this.ny * j + this.stageHeight / (2 * this.ny), this.stageWidth / this.nx, this.stageHeight / this.ny, color, this.stageWidth, this.stageHeight);
                 s.init();
