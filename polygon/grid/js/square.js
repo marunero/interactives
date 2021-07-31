@@ -14,7 +14,7 @@ export class Square {
         this.dWidth = 0;
         this.dHeight = 0;
         this.ratio = 1.3;
-        this.v = 1.1;
+        this.v = 1.08;
 
         this.expand = false;
         this.full = false;
@@ -53,20 +53,16 @@ export class Square {
             this.overZ = true;
             if (this.width * this.v < this.stageWidth) {
                 this.width *= this.v;
-                // TODO this.x = 
             }
             else{
                 this.width = this.stageWidth;
-                this.x = this.stageWidth / 2;
             }
 
             if (this.height * this.v < this.stageHeight) {
                 this.height *= this.v;
-                // TODO this.y = 
             }
             else{
                 this.height = this.stageHeight;
-                this.y = this.stageHeight / 2;
             }
         }
         else{
@@ -78,17 +74,17 @@ export class Square {
                 else{;
                     this.width = this.initW;
                     this.overZ = false;
-                    this.x = this.initX;
+                    // this.x = this.initX;
                 }
     
                 if (this.height / this.v > this.initH) {
                     this.height /= this.v;
-                    // TODO this.y = 
+                    // TODO this.y =
                 }
                 else{
                     this.height = this.initH;
                     this.overZ = false;
-                    this.y = this.initY;
+                    // this.y = this.initY;
                 }
             }
             else{
@@ -107,6 +103,17 @@ export class Square {
                 }
             }
         }
+
+        if (this.width <= this.ratio * this.initW && this.height <= this.ratio * this.initH) {
+            this.x = this.initX;
+            this.y = this.initY;
+        }
+        else{
+            this.x = this.width * (this.stageWidth / 2 - this.initX) / (this.stageWidth - this.initW) + this.initX - this.initW * (this.stageWidth / 2 - this.initX) / (this.stageWidth - this.initW);
+            
+            this.y = this.height * (this.stageHeight / 2 - this.initY) / (this.stageHeight - this.initH) + this.initY - this.initH * (this.stageHeight / 2 - this.initY) / (this.stageHeight - this.initH);
+        }
+
 
         for (let i = 0; i < 4; i ++) {
             let a = 1;
