@@ -21,7 +21,7 @@ export class WaveGroup {
         for (let i = 0; i < this.waveN; i ++) {
             this.wave[i].update();
 
-            if (this.wave[i].r > 100) {
+            if (this.wave[i].lightness > 99) {
                 this.wave.splice(i, 1);
                 this.waveN -= 1;
                 i -= 1;
@@ -30,7 +30,7 @@ export class WaveGroup {
                 let w = this.wave[i];
     
                 ctx.beginPath();
-                ctx.strokeStyle = 'black';
+                ctx.strokeStyle = "hsl(" + w.color + ", 69%, " + w.lightness + "%)";
                 ctx.lineWidth = 1;
                 ctx.lineCap = 'round';
                 ctx.moveTo(w.x + w.r, w.y);
