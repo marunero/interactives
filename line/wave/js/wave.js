@@ -3,10 +3,10 @@ export class Wave {
         this.x = x;
         this.y = y;
         this.r = 0;
-        this.v = 0.4;
+        this.v = 0.6;
 
         this.color = 197;
-        this.lightness = 63;
+        this.lightness = 53;
     }
 
     update() {
