@@ -1,4 +1,5 @@
 import { WaveGroup } from "./waveGroup.js";
+import { DustGroup } from "./dustGroup.js";
 
 class App {
     constructor() {
@@ -10,11 +11,21 @@ class App {
         
         this.WaveGroup = new WaveGroup();
 
+        this.dustN = 2;
+        this.DustGroup = new DustGroup(this.dustN, document.body.clientWidth, document.body.clientHeight);
+
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
 
         this.fps = 10;
         this.f = 0;
+        this.lps = 60;
+        this.l = [];
+        for (let i = 0; i < this.dustN; i ++) {
+            this.l[i] = Math.random() * this.lps;
+        }
+        
+
         document.addEventListener('pointermove', this.onMove.bind(this), false);
 
         requestAnimationFrame(this.animate.bind(this));
@@ -30,13 +41,23 @@ class App {
         this.ctx.scale(this.pixelRatio, this.pixelRatio);
         
         this.WaveGroup.resize(this.stageWidth, this.stageHeight);
+        this.DustGroup.resize(this.stageWidth, this.stageHeight);
     }
 
     animate() {
         this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
 
         this.f += 1;
-
+        for (let i = 0; i < this.dustN; i++) {
+            this.l[i] += 1;
+            if (this.l[i] >= this.lps) {
+                this.l[i] = 0;
+                this.WaveGroup.addDustWave(this.DustGroup.dust[i].x, this.DustGroup.dust[i].y);
+            }
+        }
+        
+        this.DustGroup.draw(this.ctx);
+        
         this.WaveGroup.draw(this.ctx);
 
         requestAnimationFrame(this.animate.bind(this));

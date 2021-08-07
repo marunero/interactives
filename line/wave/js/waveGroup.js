@@ -17,6 +17,14 @@ export class WaveGroup {
         this.waveN += 1;
     }
 
+    addDustWave(x, y) {
+        const wave = new Wave(x, y);
+        wave.v /= 2;
+        wave.lightness += 20;
+        this.wave[this.waveN] = wave;
+        this.waveN += 1;
+    }
+
     draw(ctx) {
         for (let i = 0; i < this.waveN; i ++) {
             this.wave[i].update();
