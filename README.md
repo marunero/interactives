@@ -15,3 +15,6 @@ https://marunero.github.io/interactives/polygon/slider/
 
 ## Grid
 https://marunero.github.io/interactives/polygon/grid/
+
+## Wave
+https://marunero.github.io/interactives/line/wave/
